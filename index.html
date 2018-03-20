@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Xorient Hackernews</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+</head>
+<body ng-app="XHackernews" ng-controller="mainctrl" ng-cloak>
+    <div class="main_container">
+        <div class="logo">
+            <img src="./res/img/xorientlogo.png" alt="Xoreient Hackernews">
+            <h4>Listing the best Hackernews articles!</h4>
+        </div>
+        <hr>
+
+        <div class="list_container">
+
+            <!-- SEARCH FACILITY POWERED WITH ANGULARJS -->
+            <div class="searchbar">
+                <input type="text" placeholder="Enter name to search" ng-model="searchText"> <span class="searchicon"><img src="./res/icons/search.png" alt=""></span>
+            </div>
+
+            <!-- ARTICAL LIST CONTAINING ARTICLES -->
+            <div class="articlelist">
+                <div class="article" ng-repeat="article in articles | filter: searchText | orderBy: customOrderBy : reverse " >
+                    <p class="id"><strong>ID: </strong>{{article.id}}</p>
+                    <div class="articleicon"><img src="./res/icons/text-lines.png" alt="article img"></div>
+                    <h3 class=title> <a href="{{article.url}}" target="_blank">{{ article.title }}</a></h3>
+                    <p class="author">by <strong>{{ article.author }}</strong></p>
+                    <p class="pubdate">{{ article.created_at | date }}</p>
+                    <p class="pnc"><strong>points: </strong>{{article.num_points}} | <strong>comments: </strong>{{article.num_comments}}</p>
+                </div>
+            </div>
+        </div>
+
+        <aside>
+            <div class="rate_limit">
+                <p><strong>Rate Limit: </strong>{{results[0].api_rate_limit}}</p>
+            </div>
+            
+            <!-- SORTING -->
+            <div class="filterBy">
+                <p><img src="./res/icons/sort.png" alt=""> <strong>Sort by No. of Points: </strong></p> 
+                <div class="buttons">
+                    <button class="normalbtn" ng-click="orderByMe('l2h')">Low to High</button>
+                    <button class="normalbtn" ng-click="orderByMe('h2l')">High to Low</button>
+                </div>
+            </div>
+
+            <div class="filterBy">
+                <p><img src="./res/icons/sort.png" alt=""> <strong>Sort by Date/Time: </strong></p> 
+                <div class="buttons">
+                    <button class="normalbtn" ng-click="orderByMe('n2o')">New to Old</button>
+                    <button class="normalbtn" ng-click="orderByMe('o2n')">Old to New</button>
+                </div>
+            </div>
+        </aside>
+        
+    </div>
+
+
+    <p class="info">Created by <a href="facebook.com/himanshupathak92">Himanshu Pathak</a></p>
+
+    <script src="./js/app.js"></script>
+    <script src="./js/main.js"></script>
+    
+</body>
+</html>
